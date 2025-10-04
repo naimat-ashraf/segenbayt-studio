@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About | Segenbyt Studio</title>
+
+  <style>
+    /* RESET */
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family: 'Open Sans', sans-serif; background:#0e0e0e; color:#fff; line-height:1.6; }
+
+    /* NAVBAR */
+    .navbar { background:#0e0e0e; position:fixed; top:0; width:100%; z-index:1000; padding:15px 30px; display:flex; align-items:center; }
+    .nav-container { display:flex; justify-content:space-between; width:100%; align-items:center; }
+    .logo { font-weight:700; color:#fff; font-size:20px; }
+    .nav-links { display:flex; gap:20px; }
+    .nav-links a { color:#fff; text-decoration:none; position:relative; }
+    .nav-links a:hover { color:#d4a053; }
+    .nav-links a.active { color:#d4a053; }
+    .nav-right { display:flex; align-items:center; gap:15px; }
+    .phone { font-size:12px; }
+    .btn { padding:10px 20px; border:none; cursor:pointer; text-decoration:none; transition:0.3s; }
+    .gold-btn { background:#d4a053; color:#fff; }
+    .gold-btn:hover { background:#f1c76c; }
+    .white-outline { border:1px solid #fff; color:#fff; background:transparent; }
+    .white-outline:hover { background:#fff; color:#0e0e0e; }
+    .hamburger { display:none; font-size:22px; cursor:pointer; }
+
+    /* HERO */
+    .hero { position:relative; height:70vh; display:flex; align-items:center; justify-content:center; text-align:center; background:url('https://i.pinimg.com/1200x/f6/52/04/f6520421e912763dc2a2bdbbba1f93f3.jpg') no-repeat center/cover; }
+    .hero-overlay { position:absolute; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); }
+    .hero-text { position:relative; z-index:2; }
+    .hero-text h5 { color:#d4a053; letter-spacing:2px; margin-bottom:10px; }
+    .hero-text h1 { font-size:48px; font-weight:700; }
+    .hero-text p { margin-top:10px; color:#ccc; }
+
+    /* SECTION */
+    .section { padding:80px 20px; }
+    .container { max-width:1200px; margin:auto; }
+    .two-col { display:grid; grid-template-columns:1fr 1fr; gap:40px; align-items:center; }
+    .center { text-align:center; }
+
+    /* ABOUT CONTENT */
+    .about-content img { width:100%; border-radius:10px; }
+
+    /* QUALITY */
+    .quality img { width:100%; border-radius:10px; }
+    .btn-group { margin-top:20px; display:flex; gap:15px; }
+
+    /* TEAM PREVIEW */
+    .team-row { display:flex; gap:20px; justify-content:center; margin:40px 0; flex-wrap:wrap; }
+    .team-card { text-align:center; background:#1a1a1a; padding:15px; border-radius:10px; transition:0.3s; }
+    .team-card:hover { transform:translateY(-5px); }
+    .team-card img { width:200px; height:220px; object-fit:cover; border-radius:10px; margin-bottom:10px; }
+    .team-card h4 { margin:5px 0; }
+
+    /* TESTIMONIAL */
+    .testimonials { background:#111; }
+    .testimonial-card { background:#fff; color:#000; padding:20px; border-radius:10px; text-align:center; max-width:500px; margin:auto; }
+    .avatar { width:80px; height:80px; border-radius:50%; margin-bottom:15px; }
+
+    /* CONTACT CTA */
+    .contact-cta h2 { margin-bottom:20px; }
+
+    /* FOOTER */
+    .footer { background:#0e0e0e; padding:40px 20px; }
+    .footer-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:20px; }
+    .footer-col a { display:block; color:#ccc; text-decoration:none; margin:5px 0; }
+    .footer-col a:hover { color:#d4a053; }
+    .social-icons a { margin-right:10px; color:#fff; text-decoration:none; }
+    .social-icons a:hover { color:#d4a053; }
+    .footer-bottom { text-align:center; font-size:12px; color:#ccc; margin-top:20px; }
+
+    /* RESPONSIVE */
+    @media(max-width:768px) {
+      .two-col { grid-template-columns:1fr; }
+      .nav-links { display:none; flex-direction:column; background:#0e0e0e; position:absolute; top:60px; right:0; width:50%; padding:20px; }
+      .nav-links.active { display:flex; }
+      .hamburger { display:block; }
+    }
+  </style>
+</head>
+<body>
+  
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <div class="nav-container">
+      <div class="logo">Segenbayt Studio</div>
+      <nav class="nav-links" id="navLinks">
+        <a href="index.html">Home</a>
+        <a href="about.html" class="active">About</a>
+        <a href="services.html">Services</a>
+        <a href="team.html">Team</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <div class="nav-right">
+        <span class="phone">Call us: 045 589 145</span>
+        <a href="contact.html" class="btn gold-btn">GET A QUOTE</a>
+        <div class="hamburger" onclick="toggleMenu()">☰</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero about-hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-text">
+      <h5>ABOUT US</h5>
+      <h1>Trusted Car Detailing Experts</h1>
+      <p>Delivering excellence in every detail since day one.</p>
+    </div>
+  </section>
+
+  <!-- ABOUT CONTENT -->
+  <section class="about-content section">
+    <div class="container two-col">
+      <div class="col">
+        <h2>Our Story</h2>
+        <p>
+          At Segenbyt Studio, we believe every car deserves the best care possible. 
+          With years of experience, we’ve developed advanced detailing methods to ensure 
+          a spotless, polished, and protected finish every time.
+        </p>
+        <p>
+          From luxury sedans to family SUVs, our team works with passion and precision. 
+          Customer satisfaction and professionalism are the core of our mission.
+        </p>
+      </div>
+      <div class="col">
+        <img src="https://i.pinimg.com/736x/67/84/4f/67844fc6ea7491351ac731a6f27f8dc1.jpg" alt="About our detailing service">
+      </div>
+    </div>
+  </section>
+
+  <!-- QUALITY CAR SERVICES -->
+  <section class="quality section">
+    <div class="container two-col">
+      <div class="col">
+        <img src="https://i.pinimg.com/736x/e3/fd/48/e3fd48689a1f505c0544f201df3129fa.jpg" alt="Luxury Car">
+      </div>
+      <div class="col">
+        <h2>Quality Car Services You Can Trust</h2>
+        <p>
+          We focus on reliability, premium products, and professional workmanship.
+          Every service we provide ensures your car looks its absolute best.
+        </p>
+        <div class="btn-group">
+          <a href="services.html" class="btn gold-btn">Explore Packages</a>
+          <a href="contact.html" class="btn white-outline">Contact Us</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEAM PREVIEW -->
+  <section class="team-preview section">
+    <div class="container">
+      <h2>Meet Our Specialists</h2>
+      <p>Dedicated professionals working 24/7 to serve you.</p>
+      <div class="team-row">
+        <div class="team-card">
+          <img src="https://i.pinimg.com/736x/6c/c5/19/6cc519f013abcf2ad6168a126ee877db.jpg" alt="Team Member">
+          <h4>John Doe</h4>
+          <p>Detailing Specialist</p>
+        </div>
+        <div class="team-card">
+          <img src="https://i.pinimg.com/736x/0a/d1/93/0ad19309a59be71b028548801ac38353.jpg" alt="Team Member">
+          <h4>Sarah Lee</h4>
+          <p>Interior Expert</p>
+        </div>
+        <div class="team-card">
+          <img src="https://i.pinimg.com/736x/22/5f/4c/225f4c968155fcd81cc89182f673583b.jpg" alt="Team Member">
+          <h4>Michael Smith</h4>
+          <p>Paint Correction Pro</p>
+        </div>
+      </div>
+      <a href="team.html" class="btn gold-btn">View Full Team</a>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials section dark-bg">
+    <div class="container">
+      <h2>Client Testimonial</h2>
+      <div class="testimonial-card">
+        <img src="https://i.pinimg.com/736x/b1/18/aa/b118aaf0ba2e8b8971d9b29898baedd3.jpg" alt="Client" class="avatar">
+        <h4>John Smith</h4>
+        <p><em>"They transformed my car like new. Highly professional and worth every penny!"</em></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT TEASER -->
+  <section class="contact-cta section">
+    <div class="container center">
+      <h2>Ready to Transform Your Car?</h2>
+      <div class="btn-group">
+        <a href="services.html" class="btn gold-btn">See Services</a>
+        <a href="contact.html" class="btn white-outline">Get in Touch</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div class="footer-col">
+        <h3>Segenbyt Studio</h3>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <a href="index.html">Home</a>
+        <a href="services.html">Services</a>
+        <a href="contact.html">Contact</a>
+        <a href="#">Privacy</a>
+      </div>
+      <div class="footer-col">
+        <h4>Follow Us</h4>
+        <div class="social-icons">
+          <a href="#">Fb</a>
+          <a href="#">Ig</a>
+          <a href="#">Tw</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Segenbyt Studio. All rights reserved.</p>
+      <p>Design credit: www.DownloadNewThemes.com</p>
+    </div>
+  </footer>
+
+  <script>
+    function toggleMenu() {
+      document.getElementById("navLinks").classList.toggle("active");
+    }
+  </script>
+</body>
+</html>

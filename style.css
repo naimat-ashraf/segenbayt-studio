@@ -1,0 +1,87 @@
+
+* {margin: 0; padding: 0; box-sizing: border-box; font-family: "Poppins", sans-serif;}
+
+body {background: #0e0e0e; color: white;}
+
+/* NAVBAR */
+header {position: fixed; width: 100%; top: 0; background: #0e0e0e; box-shadow: 0 2px 10px rgba(0,0,0,0.5); z-index: 1000;}
+.navbar {display: flex; justify-content: space-between; align-items: center; padding: 15px 50px;}
+.logo {font-size: 1.5rem; font-weight: 700;}
+.nav-links {display: flex; list-style: none; gap: 25px;}
+.nav-links a {text-decoration: none; color: #d4a053; transition: 0.3s;}
+.nav-links a:hover {color: white;}
+.contact-number {color: #d4a053; font-size: 0.9rem;}
+.quote-btn {background: #d4a053; color: white; border: none; padding: 10px 18px; border-radius: 5px; cursor: pointer;}
+.quote-btn:hover {background: #f0c06b; color: black;}
+.hamburger {display: none; flex-direction: column; gap: 5px; cursor: pointer;}
+.hamburger span {width: 25px; height: 3px; background: #d4a053;}
+.mobile-menu {position: fixed; top: 0; right: -100%; width: 60%; height: 100%; background: #111; transition: 0.4s; padding: 30px;}
+.mobile-menu.active {right: 0;}
+.close-btn {font-size: 2rem; color: #d4a053; position: absolute; right: 20px; top: 20px; cursor: pointer;}
+.mobile-menu ul {list-style: none; margin-top: 50px;}
+.mobile-menu li {margin-bottom: 20px;}
+.mobile-menu a {color: #d4a053; text-decoration: none; font-size: 1.2rem;}
+.mobile-contact {margin-top: 40px; color: #d4a053;}
+
+@media (max-width: 900px) {
+  .nav-links, .contact-number, .quote-btn {display: none;}
+  .hamburger {display: flex;}
+}
+
+/* HERO */
+.hero {height: 100vh; background: url('hero.jpg') center/cover no-repeat; position: relative; display: flex; align-items: center; justify-content: center; text-align: center;}
+.hero-overlay {position: absolute; inset: 0; background: rgba(0,0,0,0.6);}
+.hero-content {position: relative; z-index: 2;}
+.hero-content h5 {color: #d4a053; letter-spacing: 2px;}
+.hero-content h1 {font-size: 3rem; margin: 20px 0;}
+.hero-btn {background: #d4a053; border: none; padding: 12px 25px; color: white; border-radius: 5px; cursor: pointer;}
+
+/* SERVICES */
+.services {padding: 100px 50px; text-align: center;}
+.service-grid {display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 40px;}
+.service-card {position: relative; overflow: hidden;}
+.service-card img {width: 100%; transition: 0.4s;}
+.service-card p {position: absolute; bottom: 0; background: rgba(0,0,0,0.6); width: 100%; padding: 10px; color: #d4a053;}
+.service-card:hover img {transform: scale(1.1);}
+
+/* BRANDS */
+.brands {display: flex; justify-content: center; align-items: center; gap: 50px; padding: 50px 0;}
+.brands img {width: 80px; opacity: 0.7; transition: 0.3s;}
+.brands img:hover {opacity: 1;}
+
+/* QUALITY SECTION */
+.quality {padding: 100px 50px;}
+.quality-content {display: flex; align-items: center; justify-content: space-between; gap: 40px;}
+.quality-text {flex: 1;}
+.quality-image img {width: 100%; border-radius: 10px;}
+.btn-group {margin-top: 20px; display: flex; gap: 15px;}
+.gold-btn {background: #d4a053; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;}
+.outline-btn {background: transparent; border: 1px solid #d4a053; color: #d4a053; padding: 10px 20px; border-radius: 5px; cursor: pointer;}
+.gold-btn:hover {background: #f0c06b; color: black;}
+.outline-btn:hover {background: #d4a053; color: white;}
+
+/* PROCESS */
+.process {padding: 100px 50px; text-align: center;}
+.process-grid {display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; margin-top: 40px;}
+.process-item h3 {color: #d4a053; margin-bottom: 10px;}
+.process-img {width: 100%; margin-top: 50px; border-radius: 10px;}
+
+/* TESTIMONIAL */
+.testimonial {text-align: center; padding: 100px 50px; background: #111;}
+.testimonial-card {background: #0e0e0e; padding: 40px; border-radius: 10px; display: inline-block;}
+.avatar {width: 80px; border-radius: 50%; margin-bottom: 20px;}
+
+/* CONTACT */
+.contact {padding: 100px 50px; text-align: center;}
+form {display: flex; flex-direction: column; gap: 15px; max-width: 500px; margin: auto;}
+input, textarea {padding: 10px; border: none; border-radius: 5px;}
+textarea {min-height: 100px;}
+
+/* TEAM */
+.team {padding: 100px 50px; text-align: center;}
+.team-grid {display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; margin-top: 40px;}
+.member img {width: 100%; border-radius: 10px;}
+.member h4 {margin-top: 10px; color: #d4a053;}
+
+/* FOOTER */
+footer {text-align: center; padding: 30px 10px; background: #0a0a0a; color: #999;}

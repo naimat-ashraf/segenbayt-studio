@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Services | Segenbyt-Studio</title>
+  <style>
+    /* ===== RESET ===== */
+    * {margin: 0; padding: 0; box-sizing: border-box;}
+    body {
+      font-family: 'Open Sans', sans-serif;
+      background: #0e0e0e;
+      color: #ffffff;
+      line-height: 1.6;
+    }
+    a {text-decoration: none; color: inherit; transition: 0.3s;}
+    img {max-width: 100%; display: block;}
+
+    /* ===== HEADER ===== */
+    header {
+      position: fixed; top: 0; left: 0;
+      width: 100%; background: #0e0e0e;
+      z-index: 1000; transition: all 0.3s ease;
+    }
+    .navbar {
+      display: flex; justify-content: space-between;
+      align-items: center; padding: 15px 50px;
+    }
+    .logo {font-size: 24px; font-weight: bold; color: #fff;}
+    .nav-links {display: flex; gap: 25px;}
+    .nav-links a {color: #fff; font-weight: 500; position: relative;}
+    .nav-links a:hover {color: #d4a053;}
+    .nav-links a::after {
+      content: ""; position: absolute; bottom: -5px; left: 0;
+      width: 0; height: 2px; background: #d4a053; transition: 0.3s;
+    }
+    .nav-links a:hover::after {width: 100%;}
+    .nav-right {display: flex; align-items: center; gap: 15px;}
+    .contact-number {font-size: 14px; color: #fff;}
+    .btn {
+      background: #d4a053; color: #fff;
+      padding: 8px 16px; border: none; cursor: pointer;
+      font-weight: bold; transition: all 0.3s ease;
+    }
+    .btn:hover {background: #f0c674; color: #0e0e0e;}
+
+    /* Hamburger */
+    .hamburger {display: none; flex-direction: column; cursor: pointer; gap: 5px;}
+    .hamburger span {
+      width: 25px; height: 3px; background: #fff; border-radius: 5px;
+    }
+    .mobile-menu {
+      position: fixed; top: 0; right: -100%;
+      width: 60%; height: 100%; background: #1a1a1a;
+      flex-direction: column; padding: 50px 20px;
+      transition: 0.3s ease;
+    }
+    .mobile-menu.active {right: 0;}
+    .mobile-menu a {margin: 15px 0; font-size: 18px;}
+
+    /* ===== HERO ===== */
+    .hero {
+      background: url('https://i.pinimg.com/1200x/68/e2/d5/68e2d57bbb51cf28c66f4b72ea9b8804.jpg') no-repeat center/cover;
+      height: 60vh; display: flex; justify-content: center; align-items: center;
+      text-align: center; position: relative;
+    }
+    .hero::after {
+      content: ""; position: absolute; top: 0; left: 0;
+      width: 100%; height: 100%; background: rgba(0,0,0,0.6);
+    }
+    .hero-content {position: relative; z-index: 1;}
+    .hero-content h1 {font-size: 42px; color: #fff; margin-bottom: 10px;}
+    .hero-content p {font-size: 18px; color: #d4a053;}
+
+    /* ===== SERVICES ===== */
+    .services {
+      max-width: 1200px; margin: 80px auto; padding: 0 20px;
+    }
+    .services h2 {
+      text-align: center; font-size: 32px;
+      color: #d4a053; margin-bottom: 50px; text-transform: uppercase;
+    }
+    .services-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+    }
+    .service-card {
+      position: relative; overflow: hidden; border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.6);
+    }
+    .service-card img {
+      width: 100%; height: 220px; object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+    .service-overlay {
+      position: absolute; top: 0; left: 0;
+      width: 100%; height: 100%; background: rgba(0,0,0,0.6);
+      display: flex; justify-content: center; align-items: center;
+      color: #fff; font-size: 20px; font-weight: bold;
+      transition: background 0.4s ease;
+    }
+    .service-card:hover img {transform: scale(1.1);}
+    .service-card:hover .service-overlay {background: rgba(0,0,0,0.3);}
+
+    /* ===== FOOTER ===== */
+    footer {background: #0e0e0e; padding: 40px 20px; margin-top: 60px;}
+    .footer-container {
+      display: flex; justify-content: space-between;
+      flex-wrap: wrap; max-width: 1200px; margin: auto;
+    }
+    .footer-logo {font-size: 20px; font-weight: bold; color: #fff;}
+    .footer-links {display: flex; flex-direction: column; gap: 10px;}
+    .footer-links a:hover {color: #d4a053;}
+    .footer-social {display: flex; gap: 15px;}
+    .footer-social a {font-size: 18px; color: #fff;}
+    .footer-social a:hover {color: #d4a053;}
+    .footer-bottom {
+      text-align: center; margin-top: 30px;
+      font-size: 14px; color: #ccc;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .nav-links {display: none;}
+      .hamburger {display: flex;}
+      .hero-content h1 {font-size: 28px;}
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header>
+    <div class="navbar">
+      <div class="logo">Segenbayt-Studio</div>
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="services.html" class="active">Services</a>
+        <a href="team.html">Team</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <div class="nav-right">
+        <span class="contact-number">Call us: 045 589 145</span>
+        <a href="contact.html" class="btn">GET A QUOTE</a>
+        <div class="hamburger" id="hamburger">
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+    </div>
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="services.html">Services</a>
+      <a href="team.html">Team</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </header>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Our Services</h1>
+      <p>Premium Car Detailing Packages</p>
+    </div>
+  </section>
+
+  <!-- ===== SERVICES GRID ===== -->
+  <section class="services">
+    <h2>Transform Your Car</h2>
+    <div class="services-grid">
+      <div class="service-card">
+        <img src="https://images.pexels.com/photos/3806288/pexels-photo-3806288.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Exterior Detailing">
+        <div class="service-overlay">Exterior Detailing</div>
+      </div>
+      <div class="service-card">
+        <img src="https://images.pexels.com/photos/3806275/pexels-photo-3806275.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Interior Cleaning">
+        <div class="service-overlay">Interior Cleaning</div>
+      </div>
+      <div class="service-card">
+        <img src="https://images.pexels.com/photos/3806248/pexels-photo-3806248.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Wheel Shining">
+        <div class="service-overlay">Wheel Shining</div>
+      </div>
+      <div class="service-card">
+        <img src="https://images.pexels.com/photos/973502/pexels-photo-973502.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Leather Conditioning">
+        <div class="service-overlay">Leather Conditioning</div>
+      </div>
+      <div class="service-card">
+        <img src="https://images.pexels.com/photos/97075/pexels-photo-97075.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Engine Cleaning">
+        <div class="service-overlay">Engine Cleaning</div>
+      </div>
+      <div class="service-card">
+        <img src="https://images.pexels.com/photos/244553/pexels-photo-244553.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Paint Correction">
+        <div class="service-overlay">Paint Correction</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-logo">Segenbyt-Studio</div>
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="services.html">Services</a>
+        <a href="contact.html">Contact</a>
+        <a href="#">Privacy</a>
+      </div>
+      <div class="footer-social">
+        <a href="#">Fb</a>
+        <a href="#">Tw</a>
+        <a href="#">In</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      © 2025 Segenbyt-Studio. All rights reserved.<br>
+      www.DownloadNewThemes.com
+    </div>
+  </footer>
+
+  <!-- ===== JS ===== -->
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    hamburger.addEventListener('click', () => {
+      mobileMenu.classList.toggle('active');
+    });
+
+    const header = document.querySelector('header');
+    window.addEventListener('scroll', () => {
+      if(window.scrollY > 50){
+        header.style.padding = "5px 0";
+      } else {
+        header.style.padding = "15px 0";
+      }
+    });
+  </script>
+
+</body>
+</html>

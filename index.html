@@ -1,0 +1,730 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>ProAuto — segenbyt-studio</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg: #0e0e0e;
+      --text: #ffffff;
+      --muted: #cccccc;
+      --gold: #d4a053;
+      --gold-light: #f3d8a1;
+      --card-radius: 14px;
+      --gap: 20px;
+      --nav-height: 76px;
+      --nav-height-shrink: 60px;
+      --transition: 300ms cubic-bezier(.2,.9,.3,1);
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--text);
+      font-family: "Open Sans", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      line-height:1.6;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    a{color:inherit; text-decoration:none}
+    img{max-width:100%; display:block}
+
+    /* ---------- NAV ---------- */
+    .nav-wrap{
+      position:fixed;
+      top:0;
+      left:0;
+      right:0;
+      z-index:1000;
+      transition:height var(--transition), background var(--transition), box-shadow var(--transition), padding var(--transition);
+      height:var(--nav-height);
+      background:linear-gradient(180deg, rgba(14,14,14,0.95), rgba(14,14,14,0.85));
+      display:flex;
+      align-items:center;
+      padding:10px 28px;
+      box-shadow:0 6px 18px rgba(0,0,0,0.4);
+      backdrop-filter: blur(6px);
+    }
+    .nav-wrap.shrink{height:var(--nav-height-shrink); padding:6px 20px; box-shadow:0 8px 26px rgba(0,0,0,0.6);}
+    .nav{
+      width:100%;
+      display:flex;
+      align-items:center;
+      gap:20px;
+      justify-content:space-between;
+    }
+    .logo{
+      font-family: "Montserrat", sans-serif;
+      font-weight:800;
+      letter-spacing:0.6px;
+      color:var(--text);
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-size:20px;
+    }
+    .logo .mark{
+      width:36px; height:36px; border-radius:8px;
+      background:linear-gradient(135deg,var(--gold),#b88733);
+      display:inline-block;
+      box-shadow:0 4px 12px rgba(212,160,83,0.18), inset 0 -6px rgba(0,0,0,0.08);
+      transform:rotate(8deg);
+    }
+
+    nav.primary{
+      display:flex;
+      gap:20px;
+      align-items:center;
+      justify-content:center;
+      flex:1;
+    }
+    nav.primary a{
+      color:var(--muted);
+      text-transform:uppercase;
+      font-weight:600;
+      font-size:13px;
+      letter-spacing:0.8px;
+      padding:6px;
+      transition:color var(--transition);
+      position:relative;
+    }
+    nav.primary a:hover{ color:var(--gold) }
+    nav.primary a::after{
+      content:"";
+      height:2px;
+      width:0%;
+      position:absolute;
+      left:50%;
+      bottom:-6px;
+      transform:translateX(-50%);
+      background:var(--gold);
+      transition:width var(--transition);
+      border-radius:2px;
+    }
+    nav.primary a:hover::after{ width:60% }
+
+    .nav-right{
+      display:flex;
+      gap:12px;
+      align-items:center;
+      justify-content:flex-end;
+    }
+    .contact-small{ font-size:12px; color:#f6f6f6; opacity:0.85; }
+    .btn-quote{
+      background:var(--gold);
+      color:var(--bg);
+      padding:10px 14px;
+      border-radius:10px;
+      font-weight:700;
+      text-transform:uppercase;
+      letter-spacing:0.8px;
+      box-shadow:0 6px 18px rgba(212,160,83,0.12);
+      transition:transform var(--transition), filter var(--transition);
+    }
+    .btn-quote:hover{ transform:translateY(-3px) }
+
+    /* mobile hamburger */
+    .hamburger{
+      display:none;
+      width:44px; height:44px;
+      border-radius:10px;
+      background:rgba(255,255,255,0.03);
+      align-items:center;
+      justify-content:center;
+      cursor:pointer;
+    }
+    .hamburger span{
+      display:block; width:20px; height:2px; background:var(--muted); border-radius:2px; position:relative;
+    }
+    .hamburger span::before, .hamburger span::after{
+      content:""; width:20px; height:2px; background:var(--muted); position:absolute; left:0; border-radius:2px;
+    }
+    .hamburger span::before{ top:-6px }
+    .hamburger span::after{ top:6px }
+
+    /* Mobile slide menu */
+    .side-drawer{
+      position:fixed; top:0; right:-60%;
+      width:60%; max-width:420px; height:100%;
+      background:linear-gradient(180deg,#111111, #0f0f0f);
+      box-shadow:-30px 0 60px rgba(0,0,0,0.6);
+      transition:right var(--transition);
+      z-index:1100;
+      padding:28px;
+      display:flex;
+      flex-direction:column;
+      gap:18px;
+    }
+    .side-drawer.open{ right:0 }
+    .side-header{ display:flex; justify-content:space-between; align-items:center }
+    .close-drawer{ background:transparent; border:0; color:var(--muted); font-size:20px; cursor:pointer }
+
+    .drawer-links{ display:flex; flex-direction:column; gap:12px; margin-top:8px }
+    .drawer-links a{ padding:12px; border-radius:8px; color:var(--muted); font-weight:700; text-transform:uppercase }
+    .drawer-links a:hover{ background:rgba(212,160,83,0.06); color:var(--gold) }
+
+    .drawer-contact{ margin-top:auto; border-top:1px solid rgba(255,255,255,0.04); padding-top:18px }
+    .drawer-contact .phone{ font-weight:700; color:var(--gold); margin-bottom:6px }
+
+    /* ---------- HERO ---------- */
+    .hero{
+      margin-top:var(--nav-height);
+      min-height:calc(100vh - var(--nav-height));
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      position:relative;
+      overflow:hidden;
+    }
+    .hero .bg{
+      position:absolute; inset:0;
+      background-image: url('https://images.unsplash.com/photo-1552519507-da3b142c6e3d?q=80&w=1600&auto=format&fit=crop&ixlib=rb-4.0.3&s=8a6bd853a0c6f1e5df6ff259db3f2a6f');
+      background-size:cover; background-position:center;
+      filter:contrast(0.9) saturate(0.7);
+      transform:scale(1.02);
+    }
+    .hero::after{
+      content:"";
+      position:absolute; inset:0;
+      background:linear-gradient(180deg, rgba(0,0,0,0.55), rgba(0,0,0,0.7));
+      mix-blend-mode:multiply;
+    }
+    .hero .container{
+      position:relative; z-index:2;
+      padding:80px 20px;
+      max-width:1100px;
+      animation:fadeInUp 900ms ease both;
+    }
+    .hero small{ display:block; color:var(--gold); letter-spacing:2px; margin-bottom:18px; font-weight:700; text-transform:uppercase }
+    .hero h1{ font-family: "Montserrat", sans-serif; font-size:44px; margin:0 0 18px; line-height:1.02; font-weight:800; color:#fff; text-shadow:0 6px 30px rgba(0,0,0,0.6) }
+    .hero .cta{ display:inline-flex; gap:12px; align-items:center; margin-top:12px; flex-wrap:wrap; justify-content:center }
+    .btn-primary{
+      background:var(--gold); color:var(--bg); border:0; padding:12px 20px; border-radius:10px; cursor:pointer; font-weight:700; text-transform:uppercase;
+      transition:transform var(--transition), box-shadow var(--transition);
+    }
+    .btn-primary:hover{ transform:translateY(-4px) }
+    @keyframes fadeInUp {
+      from{ opacity:0; transform:translateY(18px) }
+      to{ opacity:1; transform:none }
+    }
+
+    /* ---------- SECTIONS ---------- */
+    .section{
+      padding:72px 20px;
+      max-width:1200px;
+      margin:0 auto;
+    }
+    .section h2{ font-family: "Montserrat", sans-serif; text-transform:uppercase; letter-spacing:1px; margin:0 0 18px; color:var(--gold); font-size:14px }
+    .section p.lead{ color:var(--muted); font-size:16px; margin:0 0 24px }
+
+    /* Services grid */
+    .services-grid{
+      display:grid;
+      grid-template-columns: repeat(3,1fr);
+      gap:20px;
+    }
+    .service-card{
+      position:relative; overflow:hidden; border-radius:12px; min-height:180px;
+      background:#111;
+      transition:transform var(--transition), box-shadow var(--transition);
+    }
+    .service-card img{ width:100%; height:100%; object-fit:cover; transition:transform var(--transition) }
+    .service-card .overlay{
+      position:absolute; inset:0; background:linear-gradient(180deg, rgba(0,0,0,0.45), rgba(0,0,0,0.45));
+      display:flex; align-items:end; padding:18px; transition:background var(--transition)
+    }
+    .service-card h3{ margin:0; font-family: "Montserrat", sans-serif; font-size:18px; color:#fff; font-weight:700 }
+    .service-card:hover{ transform:translateY(-6px) }
+    .service-card:hover img{ transform:scale(1.06) }
+    .service-card:hover .overlay{ background:linear-gradient(180deg, rgba(0,0,0,0.25), rgba(0,0,0,0.15)) }
+
+    /* Brand logos */
+    .brands{ display:flex; gap:28px; align-items:center; justify-content:center; flex-wrap:wrap }
+    .brands img{ width:110px; filter:grayscale(1) opacity(0.75); transition:filter var(--transition), transform var(--transition) }
+    .brands img:hover{ filter:none; transform:translateY(-6px) }
+
+    /* Quality two-column */
+    .two-col{ display:flex; gap:28px; align-items:center; flex-wrap:wrap }
+    .two-col .left{ flex:1; min-width:280px; border-radius:12px; overflow:hidden }
+    .two-col .right{ flex:1; min-width:280px; color:var(--muted) }
+    .two-col .right h3{ font-family: "Montserrat", sans-serif; color:#fff; margin-top:0 }
+    .btn-outline{ border:1.6px solid rgba(255,255,255,0.12); padding:10px 14px; border-radius:10px; background:transparent; color:var(--text); font-weight:700 }
+
+    /* Process 2x2 grid */
+    .process-grid{ display:grid; grid-template-columns: repeat(2,1fr); gap:18px }
+    .process-card{ background:rgba(255,255,255,0.03); padding:18px; border-radius:12px; min-height:110px; display:flex; gap:12px; align-items:flex-start }
+    .process-card .icon{
+      width:44px; height:44px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-weight:700; background:rgba(255,255,255,0.04)
+    }
+
+    /* Testimonials */
+    .test-card{
+      background:var(--bg); border-radius:18px; padding:28px; max-width:760px; margin:0 auto; position:relative;
+      box-shadow:0 6px 30px rgba(0,0,0,0.6);
+    }
+    .testimonial-inner{ display:flex; gap:16px; align-items:center }
+    .avatar{ width:64px; height:64px; border-radius:50%; overflow:hidden; border:3px solid rgba(255,255,255,0.06) }
+    .testimonial-text{ font-style:italic; color:var(--muted) }
+    .testimonial-name{ font-weight:800; margin-top:6px }
+
+    /* Contact form */
+    .contact-grid{ display:grid; grid-template-columns: 1fr 360px; gap:28px; align-items:start }
+    .form{ background:rgba(255,255,255,0.02); padding:18px; border-radius:12px }
+    .form label{ display:block; font-size:13px; color:var(--muted); margin-bottom:6px }
+    .form input, .form textarea{
+      width:100%; padding:12px; border-radius:8px; border:1px solid rgba(255,255,255,0.04); background:transparent; color:var(--text);
+      resize:vertical;
+    }
+    .form textarea{ min-height:120px }
+    .social-row{ display:flex; gap:10px; margin-top:12px }
+
+    /* Team */
+    .team-row{ display:flex; gap:18px; flex-wrap:wrap; justify-content:space-between }
+    .team-card{ width:calc(25% - 14px); min-width:160px; background:rgba(255,255,255,0.02); padding:14px; border-radius:12px; text-align:center }
+    .team-card img{ width:110px; height:110px; object-fit:cover; border-radius:50%; margin:0 auto 8px; display:block }
+    .team-card .socials{ display:flex; gap:8px; justify-content:center; margin-top:8px }
+    .socials a{ color:var(--muted); transition:color var(--transition) }
+    .socials a:hover{ color:var(--gold) }
+
+    /* Footer */
+    footer{ padding:28px 20px; background:linear-gradient(180deg,#0b0b0b,#0e0e0e) }
+    .footer-grid{ display:flex; gap:20px; justify-content:space-between; flex-wrap:wrap; align-items:flex-start }
+    .footer-grid .col{ min-width:160px; max-width:360px }
+    .footer-bottom{ text-align:center; margin-top:18px; color:var(--muted); font-size:13px }
+
+    /* small devices */
+    @media (max-width:1000px){
+      .services-grid{ grid-template-columns: repeat(2,1fr) }
+      .team-card{ width:48% }
+      .contact-grid{ grid-template-columns: 1fr }
+      .two-col{ flex-direction:column }
+      .hero h1{ font-size:36px }
+    }
+    @media (max-width:700px){
+      nav.primary{ display:none }
+      .hamburger{ display:flex }
+      .brands img{ width:82px }
+      .services-grid{ grid-template-columns: 1fr }
+      .team-card{ width:100% }
+      .nav-right .contact-small{ display:none }
+      .nav-right .btn-quote{ display:none }
+      .hero h1{ font-size:28px }
+      .hero small{ font-size:12px }
+      .nav-wrap{ padding-left:16px; padding-right:16px }
+    }
+
+    /* tiny helpers */
+    .muted{ color:var(--muted) }
+    .gap-12{ height:12px }
+    .center{ text-align:center }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <header class="nav-wrap" id="siteNav">
+    <div class="nav">
+      <div class="logo" aria-label=" segenbayt-studio">
+        <span class="mark" aria-hidden="true"></span>
+        <span>segenbyt-studio</span>
+      </div>
+
+      <nav class="primary" role="navigation" aria-label="Primary">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#services">Services</a>
+        <a href="#team">Team</a>
+        <a href="#contact">Contact</a>
+      </nav>
+
+      <div class="nav-right" role="group" aria-label="Contact and quote">
+        <div class="contact-small">Call us: <strong style="margin-left:6px">045 589 145</strong></div>
+        <button class="btn-quote" onclick="alert('Quote request - open contact panel')">GET A QUOTE</button>
+        <button class="hamburger" id="hamburgerBtn" aria-label="Open menu" title="Menu">
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- SIDE DRAWER -->
+  <aside class="side-drawer" id="sideDrawer" aria-hidden="true">
+    <div class="side-header">
+      <div style="display:flex; gap:10px; align-items:center">
+        <div class="mark" style="width:42px;height:42px;border-radius:10px"></div>
+        <div style="font-weight:800">segenbyt-studio</div>
+      </div>
+      <button class="close-drawer" id="closeDrawer" aria-label="Close menu">&times;</button>
+    </div>
+
+    <div class="drawer-links">
+      <a href="#home" onclick="closeDrawer()">Home</a>
+      <a href="about.html" onclick="closeDrawer()">About</a>
+      <a href="services.html" onclick="closeDrawer()">Services</a>
+      <a href="#team" onclick="closeDrawer()">Team</a>
+      <a href="#contact" onclick="closeDrawer()">Contact</a>
+    </div>
+
+    <div class="drawer-contact">
+      <div class="phone">045 589 145</div>
+      <div class="muted">Email: info@proauto.example</div>
+      <div style="margin-top:12px">
+        <button class="btn-quote" style="width:100%">Get a Quote</button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- HERO -->
+  <section class="hero" id="home" aria-label="Hero">
+    <div class="bg" aria-hidden="true"></div>
+    <div class="container">
+      <small>WELCOME TO  SEGENBUYT-STUDIO</small>
+      <h1>THE ULTIMATE CAR DETAILING SERVICE</h1>
+      <div class="cta">
+        <button class="btn-primary" onclick="document.querySelector('#about').scrollIntoView({behavior:'smooth'})">READ MORE</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES OVERVIEW -->
+  <section class="section" id="services" aria-labelledby="servicesTitle">
+    <h2 id="servicesTitle">Transform your car with our high-quality detailing service.</h2>
+    <p class="lead">We provide a full suite of car detailing services tailored for luxury and daily drivers alike.</p>
+
+    <div class="services-grid" role="list">
+      <article class="service-card" role="listitem" aria-label="Exterior detailing">
+        <img src="https://images.unsplash.com/photo-1502877338535-766e1452684a?q=80&w=1200&auto=format&fit=crop" alt="Exterior detailing">
+        <div class="overlay"><h3>Exterior Detailing</h3></div>
+      </article>
+
+      <article class="service-card" role="listitem" aria-label="Interior cleaning">
+        <img src="https://i.pinimg.com/736x/4e/17/9a/4e179a8be4cf2232c72c93e9bd6faad6.jpg" alt="Interior cleaning">
+        <div class="overlay"><h3>Interior Cleaning</h3></div>
+      </article>
+
+      <article class="service-card" role="listitem" aria-label="Wheel shining">
+        <img src="https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?q=80&w=1200&auto=format&fit=crop" alt="Wheel shining">
+        <div class="overlay"><h3>Wheel Shining</h3></div>
+      </article>
+
+      <article class="service-card" role="listitem" aria-label="Leather conditioning">
+        <img src="https://i.pinimg.com/1200x/5b/f1/f5/5bf1f515fdf602352251f10a1bb9f3d9.jpg" alt="Leather conditioning">
+        <div class="overlay"><h3>Leather Conditioning</h3></div>
+      </article>
+
+      <article class="service-card" role="listitem" aria-label="Engine cleaning">
+        <img src="https://i.pinimg.com/736x/eb/a1/1d/eba11d291f89308d27603fc05e6d9e18.jpg" alt="Engine cleaning">
+        <div class="overlay"><h3>Engine Cleaning</h3></div>
+      </article>
+
+      <article class="service-card" role="listitem" aria-label="Paint correction">
+        <img src="https://i.pinimg.com/736x/4f/45/a5/4f45a516c71f7243798ee58a2b0bfc92.jpg" alt="Paint correction">
+        <div class="overlay"><h3>Paint Correction</h3></div>
+      </article>
+    </div>
+  </section>
+
+  
+  <!-- QUALITY SERVICES -->
+  <section class="section" id="about" aria-label="Quality">
+    <div class="two-col">
+      <div class="left">
+        <img src="https://images.unsplash.com/photo-1511919884226-fd3cad34687c?q=80&w=1200&auto=format&fit=crop" alt="Luxury car" style="display:block; width:100%;">
+      </div>
+
+      <div class="right">
+        <h3>Quality Car Services You Can Trust</h3>
+        <p class="muted">Our team brings expertise and passion to every vehicle. From careful paint correction to deep interior detail, we ensure longevity and showroom shine using premium products and proven techniques. Reliability, professionalism and customer satisfaction are at the heart of everything we do.</p>
+
+        <div style="display:flex; gap:12px; margin-top:16px; flex-wrap:wrap;">
+          <button class="btn-primary" onclick="alert('Explore packages clicked')">Explore Packages</button>
+          <button class="btn-outline" onclick="document.querySelector('#contact').scrollIntoView({behavior:'smooth'})">Contact Us</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="section" aria-label="Process">
+    <h2>Discover Our Car Detailing Process</h2>
+    <p class="lead">A simple, transparent process so you know exactly what to expect with every service.</p>
+
+    <div class="process-grid">
+      <div class="process-card">
+        <div class="icon">🚗</div>
+        <div>
+          <strong>Convenient Service</strong>
+          <div class="muted">Pick-up and drop-off available. Mobile packages on request.</div>
+        </div>
+      </div>
+
+      <div class="process-card">
+        <div class="icon">🧰</div>
+        <div>
+          <strong>Professional Team</strong>
+          <div class="muted">Certified technicians with experience in all vehicle types.</div>
+        </div>
+      </div>
+
+      <div class="process-card">
+        <div class="icon">💲</div>
+        <div>
+          <strong>Affordable Pricing</strong>
+          <div class="muted">Transparent pricing with package options to suit your needs.</div>
+        </div>
+      </div>
+
+      <div class="process-card">
+        <div class="icon">✅</div>
+        <div>
+          <strong>Satisfaction Guaranteed</strong>
+          <div class="muted">We make it right — your satisfaction is our priority.</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:22px; border-radius:12px; overflow:hidden">
+      <img src="https://i.pinimg.com/1200x/f6/52/04/f6520421e912763dc2a2bdbbba1f93f3.jpg" alt="Luxury interior image" style="width:100%; display:block">
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="section" aria-label="Testimonials">
+    <h2>Client Testimonial</h2>
+
+    <div class="test-card" id="testimonialCard">
+      <div class="testimonial-inner" id="testimonialInner">
+        <div class="avatar">
+          <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="John Smith">
+        </div>
+        <div>
+          <div class="testimonial-text" id="testText">"Fantastic service — my car looked brand new after their paint correction. Professional staff and timely delivery."</div>
+          <div class="testimonial-name">John Smith</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="section" id="contact" aria-label="Contact">
+    <h2>Get in Touch</h2>
+    <p class="lead">Questions or ready to schedule? Send us a message.</p>
+
+    <div class="contact-grid">
+      <form class="form" onsubmit="handleContact(event)">
+        <label for="name">Name</label>
+        <input id="name" required placeholder="Your name">
+
+        <label for="email">Email</label>
+        <input id="email" type="email" required placeholder="you@example.com">
+
+        <label for="phone">Phone</label>
+        <input id="phone" placeholder="045 589 145">
+
+        <label for="message">Message</label>
+        <textarea id="message" placeholder="How can we help?"></textarea>
+
+        <div style="display:flex; gap:12px; margin-top:12px;">
+          <button class="btn-primary" type="submit">Submit</button>
+          <button type="button" class="btn-outline" onclick="document.getElementById('name').value='';document.getElementById('email').value='';document.getElementById('message').value=''">Reset</button>
+        </div>
+
+        <div class="social-row" aria-label="Social">
+          <a href="#" title="Facebook" class="muted">FB</a>
+          <a href="#" title="Instagram" class="muted">IG</a>
+          <a href="#" title="Twitter" class="muted">TW</a>
+        </div>
+      </form>
+
+      <aside style="color:var(--muted); background:rgba(255,255,255,0.02); padding:18px; border-radius:12px;">
+        <h3 style="color:#fff; margin-top:0">Contact Info</h3>
+        <div>Address: 123 Auto Lane, Motor City</div>
+        <div style="margin-top:8px">Email: info@proauto.example</div>
+        <div style="margin-top:8px">Phone: 045 589 145</div>
+
+        <div style="margin-top:16px; border-radius:8px; overflow:hidden; background:#0b0b0b; height:200px; display:flex; align-items:center; justify-content:center">
+          <div class="muted">[Map placeholder]</div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- TEAM -->
+  <section class="section" id="team" aria-label="Team">
+    <h2>Trusting our 24/7 Specialists</h2>
+
+    <div class="team-row">
+      <div class="team-card">
+        <img src="https://randomuser.me/api/portraits/men/21.jpg" alt="Team member">
+        <div style="font-weight:700; margin-top:8px">Ali Khan</div>
+        <div class="muted">Lead Technician</div>
+        <div class="socials">
+          <a href="#">FB</a><a href="#">IG</a><a href="#">TW</a>
+        </div>
+      </div>
+      <div class="team-card">
+        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Team member">
+        <div style="font-weight:700; margin-top:8px">Sara Ahmed</div>
+        <div class="muted">Detail Specialist</div>
+        <div class="socials">
+          <a href="#">FB</a><a href="#">IG</a><a href="#">TW</a>
+        </div>
+      </div>
+      <div class="team-card">
+        <img src="https://randomuser.me/api/portraits/men/55.jpg" alt="Team member">
+        <div style="font-weight:700; margin-top:8px">Bilal Tariq</div>
+        <div class="muted">Interior Expert</div>
+        <div class="socials">
+          <a href="#">FB</a><a href="#">IG</a><a href="#">TW</a>
+        </div>
+      </div>
+      <div class="team-card">
+        <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Team member">
+        <div style="font-weight:700; margin-top:8px">Maya Iqbal</div>
+        <div class="muted">Paint Correction</div>
+        <div class="socials">
+          <a href="#">FB</a><a href="#">IG</a><a href="#">TW</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-grid">
+      <div class="col">
+        <div style="display:flex; align-items:center; gap:12px;">
+          <div class="mark" style="width:46px;height:46px;border-radius:10px"></div>
+          <div style="font-weight:800">segenbyt-studio</div>
+        </div>
+      </div>
+
+      <div class="col" style="text-align:center">
+        <div style="font-weight:700; color:var(--muted); margin-bottom:8px">Quick Links</div>
+        <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap">
+          <a class="muted" href="#home">Home</a>
+          <a class="muted" href="#services">Services</a>
+          <a class="muted" href="#contact">Contact</a>
+          <a class="muted" href="#privacy">Privacy</a>
+        </div>
+      </div>
+
+      <div class="col" style="text-align:right">
+        <div style="font-weight:700; color:var(--muted); margin-bottom:8px">Follow us</div>
+        <div style="display:flex; gap:10px; justify-content:flex-end">
+          <a href="#" class="muted">FB</a>
+          <a href="#" class="muted">IG</a>
+          <a href="#" class="muted">TW</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      © 2025 ProAuto. All rights reserved. — <span style="color:var(--gold)">www.DownloadNewThemes.com</span>
+    </div>
+  </footer>
+
+  <script>
+    // NAV shrink on scroll
+    const navWrap = document.getElementById('siteNav');
+    let lastScroll = 0;
+    window.addEventListener('scroll', () => {
+      const st = window.scrollY || document.documentElement.scrollTop;
+      if (st > 40) navWrap.classList.add('shrink');
+      else navWrap.classList.remove('shrink');
+      lastScroll = st;
+    });
+
+    // Drawer controls
+    const drawer = document.getElementById('sideDrawer');
+    const hamb = document.getElementById('hamburgerBtn');
+    const closeBtn = document.getElementById('closeDrawer');
+
+    function openDrawer(){
+      drawer.classList.add('open');
+      drawer.setAttribute('aria-hidden','false');
+    }
+    function closeDrawer(){
+      drawer.classList.remove('open');
+      drawer.setAttribute('aria-hidden','true');
+    }
+    hamb.addEventListener('click', openDrawer);
+    closeBtn.addEventListener('click', closeDrawer);
+
+    // Close drawer when clicking link (see inline handlers)
+    window.closeDrawer = closeDrawer;
+
+    // Testimonials simple slider
+    const testimonials = [
+      {img:'https://randomuser.me/api/portraits/men/32.jpg', name:'John Smith', text:'"Fantastic service — my car looked brand new after their paint correction. Professional staff and timely delivery."'},
+      {img:'https://randomuser.me/api/portraits/women/65.jpg', name:'Ayesha R.', text:'"Interior cleaning was outstanding. They paid attention to tiny details. Highly recommend."'},
+      {img:'https://randomuser.me/api/portraits/men/12.jpg', name:'Omar S.', text:'"Great pricing and transparent packages. Will come back for paint correction next time."'}
+    ];
+    let tIndex = 0;
+    function showTestimonial(i){
+      const t = testimonials[i % testimonials.length];
+      document.querySelector('#testimonialInner .avatar img').src = t.img;
+      document.getElementById('testText').textContent = t.text;
+      document.querySelector('.testimonial-name').textContent = t.name;
+    }
+    setInterval(() => {
+      tIndex = (tIndex + 1) % testimonials.length;
+      // simple fade effect
+      const wrap = document.getElementById('testimonialCard');
+      wrap.style.opacity = 0;
+      setTimeout(() => { showTestimonial(tIndex); wrap.style.opacity = 1; }, 400);
+    }, 5000);
+
+    // Contact handler (demo)
+    function handleContact(e){
+      e.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      // Basic validation
+      if(!name || !email){
+        alert('Please provide name and email.');
+        return;
+      }
+      // Simulate successful submission
+      alert('Thanks, ' + name + '! Your message was submitted.');
+      e.target.reset && e.target.reset();
+    }
+
+    // Accessibility: close drawer on ESC
+    document.addEventListener('keydown', (ev) => {
+      if(ev.key === 'Escape'){
+        closeDrawer();
+      }
+    });
+
+    // Smooth link behavior for internal anchors
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', (e)=>{
+        const href = a.getAttribute('href');
+        if(href.length>1){
+          e.preventDefault();
+          const el = document.querySelector(href);
+          if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+          closeDrawer();
+        }
+      })
+    });
+
+    // Friendly reduced-motion preference
+    if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      document.documentElement.style.scrollBehavior = 'auto';
+    }
+  </script>
+</body>
+</html>
