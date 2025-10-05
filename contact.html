@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Segenbyt-Studio | Contact</title>
+
+  <style>
+    /* ===== RESET ===== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Open Sans', sans-serif;
+      background: #0e0e0e;
+      color: #ffffff;
+      line-height: 1.6;
+    }
+    a {
+      text-decoration: none;
+      color: inherit;
+      transition: 0.3s;
+    }
+
+    /* ===== HEADER ===== */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: #0e0e0e;
+      z-index: 1000;
+      transition: 0.3s ease;
+    }
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 50px;
+    }
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+      color: #fff;
+    }
+    .nav-links {
+      display: flex;
+      gap: 25px;
+    }
+    .nav-links a {
+      color: #fff;
+      font-weight: 500;
+      position: relative;
+    }
+    .nav-links a:hover {
+      color: #d4a053;
+    }
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: #d4a053;
+      transition: 0.3s;
+    }
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    .contact-number {
+      font-size: 14px;
+      color: #fff;
+    }
+    .btn {
+      background: #d4a053;
+      color: #fff;
+      padding: 8px 16px;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s ease;
+    }
+    .btn:hover {
+      background: #f0c674;
+      color: #0e0e0e;
+    }
+
+    /* ===== HAMBURGER ===== */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      gap: 5px;
+    }
+    .hamburger span {
+      width: 25px;
+      height: 3px;
+      background: #fff;
+      border-radius: 5px;
+    }
+    .mobile-menu {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 60%;
+      height: 100%;
+      background: #1a1a1a;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      transition: 0.3s ease;
+      z-index: 999;
+    }
+    .mobile-menu.active {
+      right: 0;
+    }
+    .mobile-menu a {
+      font-size: 18px;
+      color: #fff;
+      margin: 12px 0;
+      width: 100%;
+      text-align: center;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .mobile-menu a:hover {
+      background: rgba(212,160,83,0.1);
+      color: #d4a053;
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      background: url('https://i.pinimg.com/1200x/ae/55/c6/ae55c6f82d567b02323ed362c251d1a5.jpg') no-repeat center/cover;
+      height: 50vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      margin-top: 70px;
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.6);
+    }
+    .hero-content {
+      position: relative;
+      z-index: 1;
+    }
+    .hero-content h1 {
+      font-size: 42px;
+      color: #fff;
+    }
+    .hero-content p {
+      color: #d4a053;
+      font-size: 18px;
+      margin-top: 10px;
+    }
+
+    /* ===== CONTACT SECTION ===== */
+    .contact {
+      max-width: 1200px;
+      margin: 80px auto;
+      padding: 0 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 40px;
+    }
+    .contact-form {
+      flex: 1 1 500px;
+      background: #1a1a1a;
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.5);
+    }
+    .contact-form h2 {
+      color: #d4a053;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+    }
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      border: none;
+      border-radius: 5px;
+      background: #0e0e0e;
+      color: #fff;
+      font-size: 16px;
+    }
+    .contact-form textarea {
+      height: 120px;
+      resize: none;
+    }
+    .contact-form button {
+      background: #d4a053;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+      font-weight: bold;
+      border-radius: 5px;
+      transition: 0.3s;
+    }
+    .contact-form button:hover {
+      background: #f0c674;
+      color: #0e0e0e;
+    }
+
+    .contact-info {
+      flex: 1 1 400px;
+      color: #ccc;
+    }
+    .contact-info h3 {
+      color: #d4a053;
+      margin-bottom: 10px;
+    }
+    .contact-info p {
+      margin-bottom: 10px;
+    }
+    .contact-info iframe {
+      width: 100%;
+      height: 300px;
+      border: none;
+      border-radius: 8px;
+      margin-top: 20px;
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: #0e0e0e;
+      padding: 40px 20px;
+      margin-top: 60px;
+    }
+    .footer-container {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      max-width: 1200px;
+      margin: auto;
+    }
+    .footer-logo {
+      font-size: 20px;
+      font-weight: bold;
+      color: #fff;
+    }
+    .footer-links {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .footer-links a:hover {
+      color: #d4a053;
+    }
+    .footer-social {
+      display: flex;
+      gap: 15px;
+    }
+    .footer-social a {
+      font-size: 18px;
+      color: #fff;
+    }
+    .footer-social a:hover {
+      color: #d4a053;
+    }
+    .footer-bottom {
+      text-align: center;
+      margin-top: 30px;
+      font-size: 14px;
+      color: #ccc;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+      .hamburger {
+        display: flex;
+      }
+      .contact {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header>
+    <div class="navbar">
+      <div class="logo">Segenbyt-Studio</div>
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="services.html">Services</a>
+        <a href="team.html">Team</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      
+      <div class="hamburger" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="services.html">Services</a>
+      <a href="team.html">Team</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </header>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Get in Touch</h1>
+      <p>We’re here to help your car shine</p>
+    </div>
+  </section>
+
+  <!-- ===== CONTACT SECTION ===== -->
+  <section class="contact">
+    <div class="contact-form">
+      <h2>Contact Us</h2>
+      <form>
+        <input type="text" placeholder="Your Name" required />
+        <input type="email" placeholder="Your Email" required />
+        <input type="tel" placeholder="Your Phone" />
+        <textarea placeholder="Your Message"></textarea>
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+
+    <div class="contact-info">
+      <h3>Our Office</h3>
+      <p>📍 123 Auto Street, Karachi, Pakistan</p>
+      <p>📧 info@segenbytstudio.com</p>
+      <p>📞 045 589 145</p>
+      
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-logo">Segenbyt-Studio</div>
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="services.html">Services</a>
+        <a href="contact.html">Contact</a>
+        <a href="#">Privacy</a>
+      </div>
+      <div class="footer-social">
+        <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#"><i class="fa-brands fa-twitter"></i></a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      © 2025 Segenbyt-Studio. All rights reserved.<br>
+      Credit: www.DownloadNewThemes.com
+    </div>
+  </footer>
+
+  <!-- ===== JS ===== -->
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    hamburger.addEventListener('click', () => {
+      mobileMenu.classList.toggle('active');
+    });
+
+    // Shrinking navbar on scroll
+    window.addEventListener('scroll', () => {
+      const header = document.querySelector('header');
+      if (window.scrollY > 50) {
+        header.style.padding = "8px 40px";
+        header.style.background = "#111";
+      } else {
+        header.style.padding = "15px 50px";
+        header.style.background = "#0e0e0e";
+      }
+    });
+  </script>
+  <script src="https://kit.fontawesome.com/a2e0e6ad00.js" crossorigin="anonymous"></script>
+</body>
+</html>
